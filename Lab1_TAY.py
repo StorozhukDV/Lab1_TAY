@@ -5,13 +5,20 @@ import matplotlib.pyplot as pyplot
 def choise():
     inertialessUnitName = "Безынерционное звено"
     aperiodicUnitName = "Апериодическое звено"
+    integrUnitName = 'Интегрирующее звено'
+    iealdifferUnitName = 'Идеальное дифференцируеющее звено'
+    realiealdifferUnitName = 'Реальное дифференцируеющее звено'
+
 
     needNewChoice = True
     while needNewChoice:
         print(color.Style.RESET_ALL)
         userInput = input('Введите номер команды: \n'
                           '1 - ' + inertialessUnitName + ';\n'
-                          '2 - ' + aperiodicUnitName + '.\n')
+                          '2 - ' + aperiodicUnitName + '.\n'
+                          '3 - ' + integrUnitName + '.\n'
+                          '4 - ' + iealdifferUnitName + '.\n'
+                          '5 - ' + realiealdifferUnitName + '.\n')
 
         if userInput.isdigit():
             userInput = int(userInput)
@@ -20,6 +27,12 @@ def choise():
                 name = 'Безынерционное звено'
             elif userInput == 2:
                 name = 'Апериодическое звено'
+            elif userInput == 3:
+                name = 'Интегрирующее звено'
+            elif userInput == 4:
+                name = 'Идеальное дифференцирующее звено'
+            elif userInput == 5:
+                name = 'Реальное дифференцирующее звено'
             else:
                 print(color.Fore.RED + '\nНедопустимое значение!')
                 needNewChoice = True
@@ -42,6 +55,18 @@ def getUnit(name):
                 unit = matlab.tf([k], [1])
             elif name == "Апериодическое звено":
                 unit = matlab.tf([k],[t, 1])
+            elif name == 'Интегрирующее звено':
+                if t == 0:
+                    unit = matlab.tf([k], [1, 0])
+                else:
+                    unit = matlab.tf([1],[t, 0])
+            elif name == 'Идеальное дифференцирующее звено':
+                if t == 0:
+                    unit = matlab.tf([k, 0], [1 / 100000, 1])
+                else:
+                    unit = matlab.tf([t, 0], [1 / 100000, 1])
+            elif name == 'Реальное дифференцирующее звено':
+                unit = matlab.tf([k, 0],[t, 1])
         else:
             print(color.Fore.RED + '\nПожалуйста, введите числовое значение!')
             needNewChoice = True
