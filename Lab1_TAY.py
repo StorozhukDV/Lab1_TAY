@@ -48,9 +48,9 @@ def getUnit(name):
         needNewChoice = False
         k = input('пожалуйста,введите коэффециент "k": ')
         t = input('пожалуйста,введите коэффециент "t": ')
-        if k.isdigit() and t.isdigit():
-            k = int(k)
-            t = int(t)
+        try:
+            k = float(k)
+            t = float(t)
             if name == "Безынерционное звено":
                 unit = matlab.tf([k], [1])
             elif name == "Апериодическое звено":
@@ -67,7 +67,7 @@ def getUnit(name):
                     unit = matlab.tf([t, 0], [1 / 100000, 1])
             elif name == 'Реальное дифференцирующее звено':
                 unit = matlab.tf([k, 0],[t, 1])
-        else:
+        except ValueError:
             print(color.Fore.RED + '\nПожалуйста, введите числовое значение!')
             needNewChoice = True
     return unit
