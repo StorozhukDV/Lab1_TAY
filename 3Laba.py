@@ -26,7 +26,7 @@ print(Wpid1)
 print("Paзомкнутая передаточная функция")
 Wposl_pid1 = control.series(Wpid1, w5)
 print(Wposl_pid1)
-
+#
 # Задаем замкнутую передаточную функцию
 print("Замкнутая передаточная функция")
 Wsum_pid1 = control.feedback(Wposl_pid1, wl)
